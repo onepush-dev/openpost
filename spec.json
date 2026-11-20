@@ -1,0 +1,18 @@
+{
+ "slug":"openpost","name":"OpenPost","backlog_name":"OpenPost","code":"DMITjl","tid":"371a3847-768f-4acc-a52e-1df2b4bc54ae",
+ "upstream":"https://github.com/getopenpost/openpost (AGPL-3.0), ghcr.io/getopenpost/openpost:v7.42.2",
+ "services":[{"name":"openpost","image":"ghcr.io/onepush-dev/openpost:v7.42.2","port":8080,"volume":"/data","healthcheck":"/api/v1/health","restart":"ALWAYS (10)","public":true}],
+ "env_vars":{"openpost":{"OPENPOST_APP_URL":"https://${{RAILWAY_PUBLIC_DOMAIN}}","OPENPOST_PUBLIC_URL":"https://${{RAILWAY_PUBLIC_DOMAIN}}","OPENPOST_JWT_SECRET":"${{secret(48)}}","OPENPOST_ENCRYPTION_KEY":"${{secret(32)}}"}},
+ "baked_env":{"OPENPOST_PORT":"8080","OPENPOST_EDITION":"selfhost","OPENPOST_DATABASE_DRIVER":"sqlite","OPENPOST_DATABASE_PATH":"/data/db/openpost.db","OPENPOST_STORAGE_DRIVER":"local","OPENPOST_MEDIA_PATH":"/data/media"},
+ "var_descriptions":{
+  "openpost.OPENPOST_APP_URL":"Public HTTPS origin of OpenPost; OAuth callbacks, passkeys and CORS derive from it. Update for a custom domain",
+  "openpost.OPENPOST_PUBLIC_URL":"Public base URL used for media links that social networks fetch; keep equal to the app URL",
+  "openpost.OPENPOST_JWT_SECRET":"Generated key that signs login tokens",
+  "openpost.OPENPOST_ENCRYPTION_KEY":"Generated key that encrypts stored social-account tokens; keep it stable"},
+ "title":"OpenPost (Self-Hosted Social Media Scheduler)","short_desc":"Self-hosted social scheduler for X, LinkedIn, Threads and Bluesky","category":"Other",
+ "icon_note":"mdi/calendar-send (neutral; upstream logo reuse not checked)",
+ "service_icons":{"openpost":"https://api.iconify.design/mdi/calendar-send.svg"},
+ "angle":"A single-container, Buffer-style social scheduler you own: schedule posts to X, LinkedIn, Threads, Bluesky and more from one calendar, with a media library, built-in image/video editors and an MCP server for AI agents. SQLite + media live on one volume, so there is no database service; zero inputs, generated JWT and encryption keys. Different app from the existing Postiz template (smaller, single container, no Postgres/Redis/Temporal).",
+ "notes":"Official image v7.42.2 unmodified except USER root (needed to write the Railway volume; upstream runs as 'openpost'). Upstream already bakes OPENPOST_PORT=8080, EDITION=selfhost, SQLite at /data/db and media at /data/media. First registered user becomes the instance admin and registration stays open afterwards (admins can restrict it in Settings, Instance); register right after deploying. Connecting social accounts needs the user's own provider app credentials (Settings, Instance, Configuration), none are required to boot. Email (verification/reset) is not configured. AGPL-3.0, not affiliated with OpenPost.",
+ "fresh_test":"Built + FRESH-TEST PASSED Nov 20 ~11:08 AM IST: test-openpost from DMITjl (single service, volume /data) deployed first try with no inputs; /api/v1/health 200; /api/v1/ready database ok; UI 200; first registration returned a token (requires_email_verification false), login + /auth/me + app bootstrap 200, anonymous /auth/me 401; after redeploy the same user still logs in (SQLite persisted on the volume)."
+}

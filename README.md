@@ -2,7 +2,7 @@
 
 [OpenPost](https://github.com/getopenpost/openpost) (AGPL-3.0) — a self-hosted social media scheduler (X, LinkedIn, Threads, Bluesky, Mastodon and more) with a media library, image/video editors and an MCP server, in a single Go + SvelteKit container. Deploy it on Railway with one click.
 
-[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/PLACEHOLDER)
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/deploy/DMITjl)
 
 ## What this template runs
 
